@@ -15,18 +15,34 @@
         display: grid;
         place-items: center;
         background: #ffeedc;
-        image-rendering: pixelated;
       }
-      img {
-        max-width: min(90vw, 90vh);
-        max-height: 90vh;
+      .logo {
+        width: min(90vw, 90vh);
         height: auto;
-        width: auto;
+        aspect-ratio: 1 / 1;
         image-rendering: pixelated;
+        opacity: 0;
+      }
+      .logo.loaded {
+        animation: fadeIn 1.5s ease-in forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
     </style>
   </head>
   <body>
-    <img src="/logo_reversed_loop.gif" alt="Tillysoft Games" />
+    <img class="logo" src="/logo_reversed_loop.gif" alt="Tillysoft Games" />
+    <script>
+      const logo = document.querySelector(".logo");
+      const show = () => logo.classList.add("loaded");
+      if (logo.complete && logo.naturalWidth > 0) show();
+      else logo.addEventListener("load", show);
+    </script>
   </body>
 </html>
